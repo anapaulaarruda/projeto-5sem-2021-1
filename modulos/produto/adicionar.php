@@ -1,19 +1,14 @@
 
 <?php
-    $descricao = $_POST['descricao'];
-    $preco = $_POST['preco'];
-    $quantidade = $_POST['quantidade'];
-
+if(isset($_POST['botao']) && $_POST['botao'] == "Salvar"){    
     include('classes/Produto.class.php');
     $produto = new Produto();
-    $produto->setDescricao($descricao);
-    $produto->setPreco($preco);
-    $produto->setQuantidade($quantidade);
-
-    echo "O Nome do Produto digitado: ".$produto->getDescricao()."<br/>";
-    echo "O Preço do Produto digitado: ".$produto->getPreco()."<br/>";
-    echo "A Quantidade do Produto digitado: ".$produto->getQuantidade()."<br/>";
-
+    $produto->setDescricao($_POST['descricao']);
+    $produto->setPreco($_POST['preco']);
+    $produto->setQuantidade($_POST['quantidade']);
+    $produto->adicionar();    
+}
+   
 ?>
 
 
@@ -22,6 +17,6 @@ Descrição:      <input type="text" name='descricao'></br>
 Preço:          <input type="text" name='preco'></br>
 Quantidade:     <input type="text" name='quantidade'></br>
 
-<input type='submit' name='salvar' value='Salvar'>
+<input type='submit' name='botao' value='Salvar'>
 
 </form>
