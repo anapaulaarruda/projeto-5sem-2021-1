@@ -19,6 +19,9 @@ if($clientes){
         <td><?php echo $cliente->getNome();?></td>
         <td><?php echo $cliente->getEmail();?></td>
         <td><?php echo $cliente->getTelefone();?></td>
+        <td><a href="?modulo=cliente&acao=editar&id=<?php echo $cliente->getId();?>">Editar</a></td>
+        <td><a href="?modulo=cliente&acao=ecluir&id=<?php echo $cliente->getId();?>">Excluir</a></td>
+        
     </tr>
 <?php
     }

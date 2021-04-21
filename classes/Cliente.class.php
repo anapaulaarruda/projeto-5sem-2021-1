@@ -6,6 +6,23 @@
         private $email;
         private $telefone;
 
+        public function __construct($id=false){
+            if($id){
+                $sql = "SELECT * FROM cliente WHERE id_cliente =  :id";
+                $stmt = DB::Conexao()->prepare($sql);
+                $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+                $stmt->execute();
+
+                foreach($stmt as $registro){
+                    $this->setId($registro['id_cliente']);
+                    $this->setNome($registro['nome']);
+                    $this->setEmail($registro['email']);
+                    $this->setTelefone($registro['telefone']);
+                }
+            }
+        }
+
+
         public function setId($id){
             $this->id = $id;
         }
@@ -79,6 +96,41 @@
             }
         }
 
+        public function atualizar(){
+            if($this->id){
+                try{
+                    $sql = "UPDATE cliente SET
+                            nome = :nome,
+                            email = :email,
+                            telefone = :telefone
+                            WHERE id_cliente = :id";
+                    $stmt = DB::conexao()->prepare($sql);
+                    $stmt->bindParam(':nome', $this->descricao);
+                    $stmt->bindParam(':email', $this->email);
+                    $stmt->bindParam(':telefone', $this->telefone);
+                    $stmt->bindParam(':id', $this->id);
+                    $stmt->execute();
+                    
+                }catch(PDOExcetion $e){
+                    echo "ERRO AO ATUALIZAR: ".$e->getMessage();
+                } 
+            }            
+        }
+
+        public function excluir(){
+            if($this->id){
+                try{
+                    $sql = "DELETE FROM cliente WHERE id_cliente = :id";
+
+                    $stmt = DB::Conexao()->prepare($sql);
+                    $stmt->bindParam(":id", $this->id);
+                    $stmt->execute();
+
+                }catch(PDOExcetion $e){
+                    echo "ERRO AO EXCLUIR: ".$e->getMessage();
+                } 
+            }
+        }
         
     }
 ?>

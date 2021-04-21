@@ -82,13 +82,14 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
-    <section class="content">
-        <?php
-            $modulo =   $_GET['modulo'];
-            $acao =     $_GET['acao'];
-            include("modulos/".$modulo."/".$acao.".php");
-        ?>
-    </section>
+<section class="content">
+    <?php
+      if(isset($_GET['modulo'])){ $modulo = $_GET['modulo']; }else{ $modulo = "dashboard"; }
+      if(isset($_GET['acao'])){ $acao = $_GET['acao'];}else{ $acao = 'ver'; }
+        
+      include("modulos/".$modulo."/".$acao.".php");
+    ?>
+</section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
